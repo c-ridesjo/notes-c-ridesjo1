@@ -2,4 +2,13 @@
 
 Ett dokumenthanteringssystem med mySQL och WYSIWYG-editor. 
 
-Projektet är skapat enligt headless-principen. 
+Backend: nodemon start
+Frontend: localhost:3000 
+
+Database: notes
+Username: notes
+Password: notes
+
+Login to the document management system:
+Username: test
+Password: test
