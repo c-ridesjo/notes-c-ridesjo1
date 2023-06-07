@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // POST request for login
-router.post('/login', (req, res) => {
+router.post('/', (req, res) => {
   const { username, password } = req.body;
 
   // Validate the username and password

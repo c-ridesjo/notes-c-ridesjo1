@@ -25,7 +25,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
 
 app.use('/', indexRouter);
 app.use('/documents', documentsRouter);
@@ -34,7 +38,7 @@ app.use('/login', loginRouter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = 4000;
+const port = 3000;  // port for backend
 
 try {
   app.listen(port, () => {
