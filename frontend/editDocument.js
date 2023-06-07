@@ -1,4 +1,4 @@
-import { fetchAndPrintDocuments, displayDocument } from './printDocuments.js';
+import { displayDocument } from './printDocuments.js';
 
 // Function to toggle between display and edit mode
 function toggleEditMode() {

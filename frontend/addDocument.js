@@ -1,3 +1,5 @@
+import { fetchAndPrintDocuments } from './printDocuments.js';
+
 const addDocumentForm = document.getElementById('addDocumentForm');
 
 addDocumentForm.addEventListener('submit', event => {
