@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">  
+        <title>Document Management System</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+  <h1>Document Management System</h1>
+
+  <!-- Login Form -->
+  <div id="loginContainer">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- Documents Container (Initially hidden) -->
+  <div id="documentsContainer" style="display: block;">      
+    <!-- Document List -->
+    <div id="documentList">
+      <h2>Documents</h2>
+      <ul id="documentItems"></ul>
+    </div>
+
+    <!-- Document Display -->
+    <div id="documentDisplay">
+      <h2 id="documentTitle"></h2>
+      <div id="documentContent"></div>
+      <button id="editButton">Edit</button>
+      <button id="deleteButton">Delete</button>
+    </div>
+
+    <!-- Document Editor -->
+    <div id="documentEditor" style="display: block;">
+      <h2>Edit Document</h2>
+      <input type="text" id="editTitle" placeholder="Document Title">
+      <textarea id="editContent" placeholder="Document Content"></textarea>
+      <button id="saveButton">Save</button>
+      <button id="cancelButton">Cancel</button>
+    </div>
+
+    <!-- Add Document Form -->
+    <form id="addDocumentForm">
+      <div>
+        <label for="documentTitle">Title:</label>
+        <input type="text" id="documentTitle" name="documentTitle" required>
+      </div>
+      <div>
+        <label for="documentContent">Content:</label>
+        <textarea id="documentContent" name="documentContent" rows="4" required></textarea>
+      </div>
+      <button type="submit">Add Document</button>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script type=module src="printDocuments.js"></script>
+  <script type=module src="editDocument.js"></script>
+  <script type=module src="removeDocument.js"></script>
+  <script type=module src="addDocument.js"></script>
+  <script type=module src="loginForm.js"></script>
+</body>
+</html>
