@@ -106,15 +106,16 @@ router.get('/items/:itemId', function(req, res) {    // Fungerar när jag kör S
 
 // Raderar ett dokument med itemId                                    Fungerar 
 router.delete('/items/:itemId', function(req, res) {
+  let itemId = req.params.itemId;
 
   req.app.locals.con.connect(function(err){
     if (err) {
       console.log(err);
     }
     
-    let sql = `DELETE FROM items WHERE itemId = ${itemId} `       
+    let sql = `DELETE FROM items WHERE itemId = ?`;       
 
-    req.app.locals.con.query(sql, function (err, result) {
+    req.app.locals.con.query(sql, [itemId], function(err, result) {
         if (err) {
           console.log(err);
         }

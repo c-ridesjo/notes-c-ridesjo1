@@ -22,7 +22,7 @@ export function fetchAndPrintDocuments() {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.addEventListener('click', () => {
-          deleteDocument(doc);
+          deleteDocument(doc.itemId);
         });
 
         // Append the edit and delete buttons to the list item
