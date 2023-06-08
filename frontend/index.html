@@ -37,7 +37,6 @@
 
   <!-- Login Form -->
   <div id="loginContainer">
-    <h2>Login</h2>
     <form id="loginForm">
       <div>
         <label for="username">Username:</label>
@@ -52,14 +51,15 @@
   </div>
 
   <!-- Documents Container (Initially hidden) -->
-  <div id="documentsContainer" style="display: none">
- 
+  <div id="documentsContainer" class="container" style="display: none">
     <!-- Document List -->
     <div id="documentList">
       <h2>Documents</h2>
       <ul id="documentItems">
-        <button id="editButton" style="display: none">Edit</button>
-        <button id="deleteButton" style="display: none">Delete</button>
+        <li>
+          <button id="editButton">Edit</button>
+          <button id="deleteButton">Delete</button>
+        </li>
       </ul>
     </div>
 
