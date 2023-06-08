@@ -1,3 +1,5 @@
+import { fetchAndPrintDocuments } from './printDocuments.js';
+
 const loginForm = document.getElementById('loginForm');
 
 loginForm.addEventListener('submit', event => {
@@ -9,27 +11,31 @@ loginForm.addEventListener('submit', event => {
   const usernameValue = usernameInput.value;
   const passwordValue = passwordInput.value;
 
-fetch("http://localhost:3000/login", {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    username: usernameValue,
-    password: passwordValue
+  fetch("http://localhost:3000/login", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username: usernameValue,
+      password: passwordValue
+    })
   })
-})
-  .then(response => response.json()) // Parse the response as JSON
-  .then(data => {
-    if (data.success) {
-      // Login successful
-      console.log(data.message);
-      // Proceed with the necessary actions after successful login
-    } else {
-      // Login failed
-      console.log(data.message);
-      // Handle the failed login scenario
-    }
-  })
-  .catch(error => console.error(error));
-})
+    .then(response => response.json()) // Parse the response as JSON
+    .then(data => {
+      if (data.success) {
+        // Login successful
+        console.log(data.message);
+
+        // Fetch and print the existing documents
+        fetchAndPrintDocuments();
+
+        // Proceed with the necessary actions after successful login
+      } else {
+        // Login failed
+        console.log(data.message);
+        // Handle the failed login scenario
+      }
+    })
+    .catch(error => console.error(error));
+});

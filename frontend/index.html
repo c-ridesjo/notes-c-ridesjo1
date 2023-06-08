@@ -5,8 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">  
         <title>Document Management System</title>
         <link rel="stylesheet" href="style.css">
-        <script src="https://cdn.tiny.cloud/1/{kbi81d8pczcblbk4kk5jqpru1hxzyjdpyereg0jfbwuken9j}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    </head>
+        <script src="https://cdn.tiny.cloud/1/kbi81d8pczcblbk4kk5jqpru1hxzyjdpyereg0jfbwuken9j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+        <script>
+        tinymce.init({
+          selector: '#editor',
+          // Add other configuration options as needed
+        });
+        </script>        
+    
+      </head>
 <body>
   <h1>Document Management System</h1>
 
@@ -31,38 +39,22 @@
     <!-- Document List -->
     <div id="documentList">
       <h2>Documents</h2>
-      <ul id="documentItems"></ul>
+      <ul id="documentItems">
+        <button id="editButton" style="display: none">Edit</button>
+        <button id="deleteButton" style="display: none">Delete</button>
+      </ul>
     </div>
 
     <!-- Document Display -->
     <div id="documentDisplay">
       <h2 id="documentTitle"></h2>
       <div id="documentContent"></div>
-      <button id="editButton">Edit</button>
-      <button id="deleteButton">Delete</button>
+
     </div>
 
     <!-- Document Editor -->
-    <div id="documentEditor" style="display: block;">
-      <h2>Edit Document</h2>
-      <input type="text" id="editTitle" placeholder="Document Title">
-      <textarea id="editContent" placeholder="Document Content"></textarea>
-      <button id="saveButton">Save</button>
-      <button id="cancelButton">Cancel</button>
-    </div>
+    <textarea id="editor"></textarea>
 
-    <!-- Add Document Form -->
-    <form id="addDocumentForm">
-      <div>
-        <label for="documentTitle">Title:</label>
-        <input type="text" id="documentTitle" name="documentTitle" required>
-      </div>
-      <div>
-        <label for="documentContent">Content:</label>
-        <textarea id="documentContent" name="documentContent" rows="4" required></textarea>
-      </div>
-      <button type="submit">Add Document</button>
-    </form>
   </div>
 
   <!-- Scripts -->

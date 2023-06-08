@@ -24,6 +24,7 @@ h1 {
 #documentList {
   flex: 1;
   margin-right: 20px;
+  width: 40rem;
 }
 
 #documentDisplay {
@@ -111,4 +112,3 @@ h1 {
   font-weight: bold;
 }
 
-#loginForm input[type="text"],
