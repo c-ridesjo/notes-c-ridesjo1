@@ -7,26 +7,28 @@
         <link rel="stylesheet" href="style.css">
         <script src="https://cdn.tiny.cloud/1/kbi81d8pczcblbk4kk5jqpru1hxzyjdpyereg0jfbwuken9j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
-<script>
-  tinymce.init({
-    selector: '#editor',
-    plugins: "code",
-    toolbar: "undo redo | forecolor backcolor | styleselect bold italic | alignleft alignright | code",
-
-    setup: function (editor) {
-      editor.on("change", function () {
-        editor.save();
-      });
-    },
-  });
-
-  document.getElementById("saveBtn").addEventListener("click", function () {
-    var editorContent = tinymce.get("editor").getContent();
-    console.log(editorContent);
-
-    document.getElementById("textResult").innerHTML = editorContent;
-  });
-</script>
+        <script>
+          tinymce.init({
+            selector: '#editor',
+            plugins: "code",
+            toolbar: "undo redo | forecolor backcolor | styleselect bold italic | alignleft alignright | code",
+        
+            setup: function (editor) {
+              editor.on("change", function () {
+                editor.save();
+              });
+        
+              editor.on("init", function () {
+                document.getElementById("saveBtn").addEventListener("click", function () {
+                  var editorContent = tinymce.get("editor").getContent();
+                  console.log(editorContent);
+        
+                  document.getElementById("textResult").innerHTML = editorContent;
+                });
+              });
+            },
+          });
+        </script>
       
     
       </head>
@@ -50,7 +52,7 @@
   </div>
 
   <!-- Documents Container (Initially hidden) -->
-  <div id="documentsContainer">
+  <div id="documentsContainer" style="display: none">
  
     <!-- Document List -->
     <div id="documentList">
@@ -62,11 +64,11 @@
     </div>
 
     <!-- Document Display -->
-<!--     <div id="documentDisplay">
+    <div id="documentDisplay">
       <h2 id="documentTitle"></h2>
       <div id="documentContent"></div>
 
-    </div> -->
+    </div>
 
     <!-- Document Editor -->
     <textarea id="editor"></textarea>

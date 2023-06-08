@@ -29,6 +29,9 @@ loginForm.addEventListener('submit', event => {
 
         // Fetch and print the existing documents
         fetchAndPrintDocuments();
+        // After successful login
+        document.getElementById("documentsContainer").style.display = "block";
+
 
         // Proceed with the necessary actions after successful login
       } else {
