@@ -9,7 +9,7 @@ export function toggleEditMode() {
 
     if (documentDisplay && documentEditor) {
       const editTitle = document.getElementById('editTitle');
-      const editContent = tinymce.get('editor').getContent();
+      const editContent = tinymce.get('editor').getContent({ format: 'text' });
     
       // Toggle the visibility of the display and editor sections
       documentDisplay.style.display = 'none';
@@ -52,9 +52,27 @@ export function toggleEditMode() {
   
   // Attach event listeners to the edit and save buttons
   const editButton = document.getElementById('editButton');
+  editButton.addEventListener('click', editDocument);
   const saveButton = document.getElementById('saveButton');
 
   if (editButton && saveButton) {
     editButton.addEventListener('click', toggleEditMode);
     saveButton.addEventListener('click', saveDocument);
   }
+
+  
+// Function to edit the document
+export function editDocument() {
+  const editTitle = document.getElementById('editTitle');
+  const editContent = tinymce.get('editor').getContent();
+
+  if (editTitle && editContent) {
+    // Update the document's data
+    document.itemName = editTitle.value;
+    document.itemContent = editContent.value;
+
+    // Display the updated document
+    displayDocument(document);
+  }
+}
+
