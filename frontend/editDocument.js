@@ -1,9 +1,18 @@
 import { displayDocument } from './printDocuments.js';
 import { deleteDocument } from './removeDocument.js';
 
+// Initialize TinyMCE editor on the textarea
+tinymce.init({
+  selector: '#editContent',
+  height: 300,
+  plugins: 'autoresize',
+  toolbar: 'bold italic underline | alignleft aligncenter alignright | bullist numlist',
+  autoresize_bottom_margin: 16
+});
 
 // Function to toggle between display and edit mode
 export function toggleEditMode() {
+  console.log('toggleEditMode called');
     const documentDisplay = document.getElementById('documentDisplay');
     const documentEditor = document.getElementById('documentEditor');
 
@@ -52,11 +61,13 @@ export function toggleEditMode() {
   
   // Attach event listeners to the edit and save buttons
   const editButton = document.getElementById('editButton');
+
   editButton.addEventListener('click', editDocument);
   const saveButton = document.getElementById('saveButton');
 
   if (editButton && saveButton) {
     editButton.addEventListener('click', toggleEditMode);
+    console.log('Edit button clicked');
     saveButton.addEventListener('click', saveDocument);
   }
 
