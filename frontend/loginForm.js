@@ -1,44 +1,37 @@
-import { fetchAndPrintDocuments } from './printDocuments.js';
+import { fetchAndPrintDocuments } from "./printDocuments.js";
 
-const loginForm = document.getElementById('loginForm');
+const loginForm = document.getElementById("loginForm");
 
-loginForm.addEventListener('submit', event => {
+loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const usernameInput = document.getElementById('username');
-  const passwordInput = document.getElementById('password');
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
 
   const usernameValue = usernameInput.value;
   const passwordValue = passwordInput.value;
 
   fetch("http://localhost:3000/login", {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       username: usernameValue,
-      password: passwordValue
-    })
+      password: passwordValue,
+    }),
   })
-    .then(response => response.json()) // Parse the response as JSON
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       if (data.success) {
-        // Login successful
         console.log(data.message);
 
-        // Fetch and print the existing documents
         fetchAndPrintDocuments();
-        // After successful login
         document.getElementById("documentsContainer").style.display = "block";
-
-
-        // Proceed with the necessary actions after successful login
       } else {
-        // Login failed
+        //login failed
         console.log(data.message);
-        // Handle the failed login scenario
       }
     })
-    .catch(error => console.error(error));
+    .catch((error) => console.error(error));
 });

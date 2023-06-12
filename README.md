@@ -2,13 +2,13 @@
 
 Ett dokumenthanteringssystem med mySQL och WYSIWYG-editor. 
 
-Backend: cd backend, nodemon start
+Backend: cd backend => nodemon start
 Frontend: localhost:3000 
 
 Database: notes
 Username: notes
 Password: notes
 
-Login to the document management system:
+Inloggning till systemet:
 Username: test
 Password: test

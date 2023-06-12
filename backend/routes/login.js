@@ -1,17 +1,18 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 // POST request for login
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
   const { username, password } = req.body;
 
   // Validate the username and password
-  if (username === 'test' && password === 'test') {
-    // Authentication successful
-    res.status(200).json({ success: true, message: 'Login successful' });
+  if (username === "test" && password === "test") {
+    res.status(200).json({ success: true, message: "Login successful" });
   } else {
-    // Authentication failed
-    res.status(401).json({ success: false, message: 'Invalid username or password' });
+    //login failed
+    res
+      .status(401)
+      .json({ success: false, message: "Invalid username or password" });
   }
 });
 

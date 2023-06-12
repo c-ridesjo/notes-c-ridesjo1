@@ -1,87 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">  
-        <title>Notes</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="https://cdn.tiny.cloud/1/kbi81d8pczcblbk4kk5jqpru1hxzyjdpyereg0jfbwuken9j/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://cdn.tiny.cloud/1/kbi81d8pczcblbk4kk5jqpru1hxzyjdpyereg0jfbwuken9j/tinymce/5/tinymce.min.js"
+      referrerpolicy="origin"></script>
 
-        <script>
-          tinymce.init({
-            selector: '#editor',
-            plugins: "code",
-            toolbar: "undo redo | forecolor backcolor | styleselect bold italic | alignleft alignright | code",
-        
-            setup: function (editor) {
-              editor.on("change", function () {
-                editor.save();
-              });
-        
-              editor.on("init", function () {
-                document.getElementById("saveBtn").addEventListener("click", function () {
-                  var editorContent = tinymce.get("editor").getContent();
-                  console.log(editorContent);
-        
-                  document.getElementById("textResult").innerHTML = editorContent;
-                });
-              });
-            },
+    <script>
+      tinymce.init({
+        selector: "#editor",
+        plugins: "code",
+        toolbar:
+          "undo redo | forecolor backcolor | styleselect bold italic | alignleft alignright | code",
+
+        setup: function (editor) {
+          editor.on("change", function () {
+            editor.save();
           });
-        </script>
-      
-    
-      </head>
-<body>
-  <h1>Document Management System</h1>
 
-  <!-- Login Form -->
-  <div id="loginContainer">
-    <form id="loginForm">
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <button type="submit">Login</button>
-    </form>
-  </div>
+          editor.on("init", function () {
+            document
+              .getElementById("saveBtn")
+              .addEventListener("click", function () {
+                var editorContent = tinymce.get("editor").getContent();
+                console.log(editorContent);
 
-  <!-- Documents Container (Initially hidden) -->
-  <div id="documentsContainer" class="container" style="display: none">
-    <!-- Document List -->
-    <div id="documentList">
-      <h2>Documents</h2>
-      <ul id="documentItems">
-        <li>
-          <button id="editButton">Edit</button>
-          <button id="deleteButton">Delete</button>
-        </li>
-      </ul>
+                document.getElementById("textResult").innerHTML = editorContent;
+              });
+          });
+        },
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Document Management System</h1>
+
+    <!-- Login form -->
+    <div id="loginContainer">
+      <form id="loginForm">
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit">Login</button>
+      </form>
     </div>
 
-    <!-- Document Display -->
-    <div id="documentDisplay">
-      <h2 id="documentTitle"></h2>
-      <div id="documentContent"></div>
+    <!-- Documents container (Initially hidden) -->
+    <div id="documentsContainer" class="container">
+      <!-- Document list -->
+      <div id="documentList">
+        <h2>Documents</h2>
+        <ul id="documentItems">
+          <li>
+            <button id="editButton">Edit</button>
+            <button id="deleteButton">Delete</button>
+          </li>
+        </ul>
+      </div>
 
+      <!-- Document display -->
+      <div id="documentDisplay">
+        <h2 id="documentTitle"></h2>
+        <div id="documentContent"></div>
+      </div>
+
+      <!-- Document editor -->
+      <textarea id="editor"></textarea>
+      <button id="saveBtn">Save</button>
+      <div id="textResult"></div>
     </div>
 
-    <!-- Document Editor -->
-    <textarea id="editor"></textarea>
-    <button id="saveBtn">Save</button>
-    <div id="textResult"></div>
-
-  </div>
-
-  <!-- Scripts -->
-  <script type=module src="printDocuments.js"></script>
-  <script type=module src="editDocument.js"></script>
-  <script type=module src="removeDocument.js"></script>
-  <script type=module src="addDocument.js"></script>
-  <script type=module src="loginForm.js"></script>
-</body>
+    <script type="module" src="printDocuments.js"></script>
+    <script type="module" src="editDocument.js"></script>
+    <script type="module" src="removeDocument.js"></script>
+    <script type="module" src="addDocument.js"></script>
+    <script type="module" src="loginForm.js"></script>
+  </body>
 </html>
