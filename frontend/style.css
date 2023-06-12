@@ -15,7 +15,28 @@ h1 {
   text-align: center;
   margin-top: 0;
   padding-top: 20px;
-  color: blue;
+  color: rgb(240, 139, 57);
+}
+
+#loginForm {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f6e0c8;
+  border: 1px solid #f8ac0a;
+  margin-top: 50px;
+}
+
+#loginForm button{
+  background-color: rgb(240, 161, 97);
+}
+
+#loginForm div {
+  margin-bottom: 10px;
+}
+
+#loginForm label {
+  font-weight: bold;
 }
 
 #documentsContainer {
@@ -47,13 +68,13 @@ h1 {
   position: relative;
   list-style: none;
   padding: 10px 20px;
-  color: #ffffff;
+  color: black;
   font-weight: 600;
-  border: 2px solid #025f70;
+  border: 2px solid #4c9b17;
   border-radius: 5px;
   margin-bottom: 10px;
   margin-top: 15px;
-  background: #4EB9CD;
+  background: #acdc8b;
 }
 
 #documentItems li button {
@@ -72,27 +93,6 @@ h1 {
 
 #documentContent {
   white-space: pre-wrap;
-}
-
-#loginForm {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  margin-top: 50px;
-}
-
-#loginForm button{
-  background-color: rgb(140, 140, 240);
-}
-
-#loginForm div {
-  margin-bottom: 10px;
-}
-
-#loginForm label {
-  font-weight: bold;
 }
 
 #editor {
