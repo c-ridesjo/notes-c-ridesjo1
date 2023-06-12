@@ -1,6 +1,6 @@
 # notes-c-ridesjo1
 
-Ett dokumenthanteringssystem med mySQL och WYSIWYG-editor. 
+A document management system with mySQL and WYSIWYG-editor. 
 
 ## Backend 
 cd backend => nodemon start
@@ -16,7 +16,7 @@ The MySQL database details are as follows:
 - Password: notes
 
 
-## Inloggning till systemet
+## Login to the system
 
 Use the following credentials to log in to the system:
 - Username: test
