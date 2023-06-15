@@ -1,5 +1,3 @@
-import { fetchAndPrintDocuments } from "./printDocuments.js";
-
 const addDocumentForm = document.getElementById("addDocumentForm");
 
 if (addDocumentForm) {
@@ -11,9 +9,9 @@ if (addDocumentForm) {
 
     if (documentTitleInput && documentContentInput) {
       const documentTitle = documentTitleInput.value;
-      const documentContent = documentContentInput.value;
+      const documentContent = documentContentInput;
 
-      fetch("http://localhost:3000/documents", {
+      fetch("http://localhost:3000/items", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,8 +24,9 @@ if (addDocumentForm) {
         .then((response) => response.json())
         .then((data) => {
           documentTitleInput.value = "";
-          documentContentInput.value = "";
+          tinymce.get("editor").setContent("");
 
+          // Call fetchAndPrintDocuments to update the document list
           fetchAndPrintDocuments();
         })
         .catch((error) => console.error(error));

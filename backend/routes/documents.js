@@ -79,16 +79,26 @@ router.post("/", function (req, res) {
       console.log(err);
     }
 
-    let saveName = "Nytt dokument";
+    //let saveName = "Nytt dokument";         Ändrat här!!!
+    let itemName = req.body.documentTitle;
+    let itemContent = req.body.documentContent;
 
-    let sql = `INSERT INTO items (itemName) VALUES ('${saveName}')`;
+    let sql = `INSERT INTO items (itemName, itemContent) VALUES ('${itemName}', '${itemContent}')`;
 
     req.app.locals.con.query(sql, function (err, result) {
       if (err) {
         console.log(err);
+        res.status(500).json("Error occurred while saving the document.");
+        return;
       }
 
       console.log("result", result);
+
+      // Retrieve the updated list of documents from the database
+      const updatedDocumentList = getUpdatedDocumentList();
+
+      // Send the updated list back to the client
+      res.json(updatedDocumentList);
     });
   });
 
