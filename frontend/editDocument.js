@@ -7,7 +7,7 @@ export function toggleEditMode(document) {
   if (documentDisplay && documentEditor) {
     const editTitle = document.getElementById("editTitle");
     const editor = tinymce.get("editor");
-    const saveButton = document.getElementById("saveButton"); 
+    const saveButton = document.getElementById("saveBtn");
 
     documentDisplay.style.display = "none";
     documentEditor.style.display = "block";
@@ -15,11 +15,15 @@ export function toggleEditMode(document) {
     editTitle.value = document.itemName;
     editor.setContent(document.itemContent);
 
+    // Remove existing event listener before adding it again
+    saveButton.removeEventListener("click", saveDocument);
+
     saveButton.addEventListener("click", () => {
       saveDocument(document.itemId);
     });
   }
 }
+
 
 export function saveDocument(itemId) {
   const editTitle = document.getElementById("editTitle");
