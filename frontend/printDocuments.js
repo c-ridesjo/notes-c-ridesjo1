@@ -47,6 +47,7 @@ export function fetchAndPrintDocuments() {
 }
 
 
+
 export function displayDocument() {
   const documentTitle = document.getElementById("documentTitle");
   const documentContent = document.getElementById("documentContent");

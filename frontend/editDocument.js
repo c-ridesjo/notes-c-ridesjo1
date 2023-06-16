@@ -25,6 +25,7 @@ export function toggleEditMode(document) {
 }
 
 
+
 export function saveDocument(itemId) {
   const editTitle = document.getElementById("editTitle");
   const editor = tinymce.get("editor");
@@ -47,7 +48,7 @@ export function saveDocument(itemId) {
         console.log("Save document response:", data);
         document.itemName = data.itemName;
         document.itemContent = data.itemContent;
-        displayDocument(document);
+        displayDocument();
 
         // Check if the saved document is already in the documentList
         const listItem = document.querySelector(`li[data-id="${itemId}"]`);

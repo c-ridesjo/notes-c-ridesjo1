@@ -135,11 +135,11 @@ router.put("/items/:itemId", function (req, res) {
       console.log(err);
     }
 
-    const { itemId, itemName } = req.body;
+    const { itemId, itemName, itemContent } = req.body;
 
-    let sql = `UPDATE items SET itemName = ? WHERE itemId = ?`;
+    let sql = `UPDATE items SET itemName = ?, itemContent = ? WHERE itemId = ?`;
 
-    req.app.locals.con.query(sql, [itemName, itemId], function (err, result) {
+    req.app.locals.con.query(sql, [itemName, itemContent, itemId], function (err, result) {
       if (err) {
         console.log(err);
       }
