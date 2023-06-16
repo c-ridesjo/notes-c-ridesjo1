@@ -1,4 +1,4 @@
-import { displayDocument } from "./printDocuments.js";
+import { fetchAndPrintDocuments } from "./printDocuments.js";
 
 export function toggleEditMode(document) {
   const documentDisplay = document.getElementById("documentDisplay");
@@ -24,8 +24,6 @@ export function toggleEditMode(document) {
   }
 }
 
-
-
 export function saveDocument(itemId) {
   const editTitle = document.getElementById("editTitle");
   const editor = tinymce.get("editor");
@@ -50,38 +48,13 @@ export function saveDocument(itemId) {
         document.itemContent = data.itemContent;
         displayDocument();
 
-        // Check if the saved document is already in the documentList
-        const listItem = document.querySelector(`li[data-id="${itemId}"]`);
-        if (listItem) {
-          // Update the text content
-          listItem.textContent = data.itemName;
-        } else {
-          // Create a new list item and add it to the documentList
-          const listItem = document.createElement("li");
-          listItem.textContent = data.itemName;
-          listItem.setAttribute("data-id", data.itemId);
-
-          const editButton = document.createElement("button");
-          editButton.textContent = "Edit";
-          editButton.addEventListener("click", () => {
-            toggleEditMode(data);
-          });
-
-          const deleteButton = document.createElement("button");
-          deleteButton.textContent = "Delete";
-          deleteButton.addEventListener("click", () => {
-            deleteDocument(data.itemId);
-          });
-
-          listItem.appendChild(editButton);
-          listItem.appendChild(deleteButton);
-
-          document.getElementById("documentItems").appendChild(listItem);
-        }
+        // Call fetchAndPrintDocuments to update the document list
+        fetchAndPrintDocuments();
       })
       .catch((error) => console.error(error));
   }
 }
+
 
 
 const addDocumentForm = document.getElementById("addDocumentForm");

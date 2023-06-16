@@ -11,7 +11,7 @@ if (addDocumentForm) {
       const documentTitle = documentTitleInput.value;
       const documentContent = documentContentInput;
 
-      fetch("http://localhost:3000/items", {
+      fetch("http://localhost:3000/documents/items", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,8 +23,8 @@ if (addDocumentForm) {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log("Create response:", data);
           documentTitleInput.value = "";
-          tinymce.get("editor").setContent("");
 
           // Call fetchAndPrintDocuments to update the document list
           fetchAndPrintDocuments();
