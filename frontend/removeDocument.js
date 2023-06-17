@@ -21,4 +21,8 @@ export function deleteDocument(itemId) {
 }
 
 const deleteButton = document.getElementById("deleteButton");
-deleteButton.addEventListener("click", () => deleteDocument(document.itemId));
+deleteButton.addEventListener("click", () => {
+  // Retrieve the itemId from the document element or wherever it is stored
+  const itemId = document.getElementById("itemId").value;
+  deleteDocument(itemId);
+});

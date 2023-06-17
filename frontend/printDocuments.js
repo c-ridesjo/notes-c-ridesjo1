@@ -1,3 +1,5 @@
+import { deleteDocument } from "./removeDocument.js";
+
 export function fetchAndPrintDocuments() {
   fetch("http://localhost:3000/documents/items")
     .then((response) => response.json())
@@ -33,5 +35,8 @@ export function fetchAndPrintDocuments() {
           document.itemContent = doc.itemContent;
         }
       });
+    })
+    .catch((error) => {
+      console.log("An error occurred while fetching documents:", error);
     });
 }

@@ -10,7 +10,7 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
   }
   
   let newDocument = {
-    documentTitle: document.getElementById("title").value,
+    documentTitle: document.getElementById("editTitle").value,
     documentContent: removeHtmlTags(tinymce.activeEditor.getContent()),
   }
 
