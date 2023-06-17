@@ -16,46 +16,35 @@ export function toggleEditMode(document) {
     editor.setContent(document.itemContent);
 
     // Remove existing event listener before adding it again
-    saveButton.removeEventListener("click", saveDocument);
+    saveButton.removeEventListener("click", saveUpdatedDocument);
 
     saveButton.addEventListener("click", () => {
-      saveDocument(document.itemId);
+      saveUpdatedDocument(document.itemId);
     });
   }
 }
 
-export function saveDocument(itemId) {
-  const editTitle = document.getElementById("editTitle");
-  const editor = tinymce.get("editor");
-  const editContent = editor.getContent();
+function saveUpdatedDocument(itemContent, itemName) {
+  let content = {
+    updatedContent: itemContent.value,
+    updatedTitle: itemName.value
+  };
 
-  if (editTitle && editor && editContent) {
-    fetch(`http://localhost:3000/documents/items/${itemId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        itemId: itemId,
-        itemName: editTitle.value,
-        itemContent: editContent,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Save document response:", data);
-        document.itemName = data.itemName;
-        document.itemContent = data.itemContent;
-        displayDocument();
+  console.log(content);
 
-        // Call fetchAndPrintDocuments to update the document list
-        fetchAndPrintDocuments();
-      })
-      .catch((error) => console.error(error));
-  }
+  fetch("http://localhost:3000/documents/items/${itemId}", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(content),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      alert("Changes applied!")
+    });
 }
-
-
 
 const addDocumentForm = document.getElementById("addDocumentForm");
 

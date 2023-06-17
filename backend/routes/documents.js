@@ -93,12 +93,12 @@ router.post("/", function (req, res) {
       }
 
       console.log("result", result);
-
+/* 
       // Retrieve the updated list of documents from the database
       const updatedDocumentList = getUpdatedDocumentList();
 
       // Send the updated list back to the client
-      res.json(updatedDocumentList);
+      res.json(updatedDocumentList); */
     });
   });
 

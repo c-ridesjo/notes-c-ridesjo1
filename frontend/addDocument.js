@@ -1,35 +1,26 @@
-const addDocumentForm = document.getElementById("addDocumentForm");
+document.getElementById("saveBtn").addEventListener("click", function(e) {
+  e.preventDefault();
 
-if (addDocumentForm) {
-  addDocumentForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+  let user = localStorage.getItem("username");
+  console.log(user);
 
-    const documentTitleInput = document.getElementById("documentTitle");
-    const documentContentInput = tinymce.get("editor").getContent();
+  let newDocument = {
+      newDocumentTitle: document.getElementById("title").value,
+      newDocumentContent: tinymce.activeEditor.getContent()
+  }
 
-    if (documentTitleInput && documentContentInput) {
-      const documentTitle = documentTitleInput.value;
-      const documentContent = documentContentInput;
+  console.log(newDocument);
 
-      fetch("http://localhost:3000/documents/items", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          itemName: documentTitle,
-          itemContent: documentContent,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Create response:", data);
-          documentTitleInput.value = "";
-
-          // Call fetchAndPrintDocuments to update the document list
-          fetchAndPrintDocuments();
-        })
-        .catch((error) => console.error(error));
-    }
+  fetch("http://localhost:3000/documents", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newDocument),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      alert("Document successfully saved!");
   });
-}
+})
