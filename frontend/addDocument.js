@@ -4,9 +4,14 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
   let user = localStorage.getItem("username");
   console.log(user);
 
+  function removeHtmlTags(content) {
+    const regex = /(<([^>]+)>)/gi;
+    return content.replace(regex, "");
+  }
+  
   let newDocument = {
-      newDocumentTitle: document.getElementById("title").value,
-      newDocumentContent: tinymce.activeEditor.getContent()
+    documentTitle: document.getElementById("title").value,
+    documentContent: removeHtmlTags(tinymce.activeEditor.getContent()),
   }
 
   console.log(newDocument);
