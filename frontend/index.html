@@ -66,6 +66,8 @@
         </ul>
       </div>
 
+      <h2>Create new document</h2>
+      <button id="clearFieldsButton">Clear Fields</button>
       <!-- Document display -->
       <div id="documentDisplay">
         <h2 id="documentTitle"></h2>
@@ -76,11 +78,10 @@
       <div id="documentEditor">
         <label for="editTitle">Title:</label>
         <input type="text" id="editTitle" placeholder="Enter document title"/>
-        <textarea id="editor"></textarea>
+        <textarea id="editor" placeholder="Enter your text"></textarea>
         <button id="saveBtn">Save</button>
         <div id="textResult"></div>
       </div>
-
 
       <script type="module" src="removeDocument.js"></script>
       <script type="module" src="printDocuments.js"></script>

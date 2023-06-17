@@ -29,3 +29,16 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
       alert("Document successfully saved!");
   });
 })
+
+// Event listener for the clearFieldsButton
+document.getElementById("clearFieldsButton").addEventListener("click", function() {
+  clearDocumentFields();
+});
+
+function clearDocumentFields() {
+  const editTitle = document.getElementById("editTitle");
+  const editor = tinymce.get("editor");
+
+  editTitle.value = "";
+  editor.setContent("");
+}
