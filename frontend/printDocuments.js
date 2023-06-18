@@ -10,9 +10,10 @@ export function fetchAndPrintDocuments() {
 
       data.forEach((doc) => {
         const listItem = document.createElement("li");
-        listItem.textContent = doc.itemName;
 
-        listItem.addEventListener("click", () => {
+        const documentName = document.createElement("span");
+        documentName.textContent = doc.itemName;
+        documentName.addEventListener("click", () => {
           const editTitle = document.getElementById("editTitle");
           const editor = tinymce.get("editor");
           const textResult = document.getElementById("textResult");
@@ -21,10 +22,14 @@ export function fetchAndPrintDocuments() {
           editor.setContent(doc.itemContent);
           textResult.innerHTML = doc.itemContent;
 
-          toggleEditMode(doc); 
+          toggleEditMode(doc);
 
-          document.getElementById("documentEditor").scrollIntoView({ behavior: "smooth" });
+          document.getElementById("documentEditor").scrollIntoView({
+            behavior: "smooth",
+          });
         });
+
+        listItem.appendChild(documentName);
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";

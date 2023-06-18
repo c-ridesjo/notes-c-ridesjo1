@@ -97,8 +97,8 @@ h1 {
   background: #acdc8b;
 }
 
-#documentItems li:hover {
-  background-color: #4c9b17;
+#documentItems span:hover {
+  text-decoration: 2px underline #418514;
 }
 
 #documentItems li button {
