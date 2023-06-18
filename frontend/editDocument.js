@@ -1,6 +1,4 @@
-import { fetchAndPrintDocuments } from "./printDocuments.js";
-
-export function toggleEditMode(document) {
+export function toggleEditMode(doc) {
   const documentDisplay = document.getElementById("documentDisplay");
   const documentEditor = document.getElementById("documentEditor");
 
@@ -9,30 +7,32 @@ export function toggleEditMode(document) {
     const editor = tinymce.get("editor");
     const saveButton = document.getElementById("saveBtn");
 
-    documentDisplay.style.display = "none";
+    documentDisplay.style.display = "block";
     documentEditor.style.display = "block";
 
-    editTitle.value = document.itemName;
-    editor.setContent(document.itemContent);
+    editTitle.value = doc.itemName;
+    editor.setContent(doc.itemContent);
 
     // Remove existing event listener before adding it again
     saveButton.removeEventListener("click", saveUpdatedDocument);
 
     saveButton.addEventListener("click", () => {
-      saveUpdatedDocument(document.itemId);
+      saveUpdatedDocument(doc.itemContent, doc.itemName, doc.itemId);
     });
   }
 }
 
-function saveUpdatedDocument(itemContent, itemName) {
+
+
+function saveUpdatedDocument(itemContent, itemName, itemId) {
   let content = {
-    updatedContent: itemContent.value,
-    updatedTitle: itemName.value
+    updatedContent: itemContent,
+    updatedTitle: itemName
   };
 
   console.log(content);
 
-  fetch("http://localhost:3000/documents/items/${itemId}", {
+  fetch(`http://localhost:3000/documents/items/${itemId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -41,43 +41,7 @@ function saveUpdatedDocument(itemContent, itemName) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      alert("Changes applied!")
+      console.log(data); 
     });
 }
 
-const addDocumentForm = document.getElementById("addDocumentForm");
-
-if (addDocumentForm) {
-  addDocumentForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const documentTitleInput = document.getElementById("documentTitle");
-    const documentContentInput = tinymce.get("editor").getContent();
-
-    if (documentTitleInput && documentContentInput) {
-      const documentTitle = documentTitleInput.value;
-      const documentContent = documentContentInput;
-
-      console.log("Creating new document...");
-      console.log("Document title:", documentTitle);
-      console.log("Document content:", documentContent);
-
-      fetch("http://localhost:3000/documents/items", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          itemName: documentTitle,
-          itemContent: documentContent,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Create response:", data);
-          documentTitleInput.value = "";
-        })
-    }
-  })
-}

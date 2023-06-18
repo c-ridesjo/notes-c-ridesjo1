@@ -56,37 +56,44 @@
     <!-- Documents container (Initially hidden) -->
     <div id="documentsContainer" class="container">
       <!-- Document list -->
-      <div id="documentList">
-        <h2>Documents</h2>
-        <ul id="documentItems">
-          <li>
-            <button id="editButton">Edit</button>
-            <button id="deleteButton">Delete</button>
-          </li>
-        </ul>
+      <div id="documentListContainer">
+        <div id="documentList">
+          <h2>Documents</h2>
+          <ul id="documentItems">
+            <li>
+              <button id="editButton">Edit</button>
+              <button id="deleteButton">Delete</button>
+            </li>
+          </ul>
+          <button id="newDocButton">Create new document</button>
+        </div>
       </div>
 
-      <h2>Create new document</h2>
-      <button id="clearFieldsButton">Clear Fields</button>
-      <!-- Document display -->
-      <div id="documentDisplay">
-        <h2 id="documentTitle"></h2>
-        <div id="documentContent"></div>
-      </div>
 
-      <!-- Document editor -->
-      <div id="documentEditor">
-        <label for="editTitle">Title:</label>
-        <input type="text" id="editTitle" placeholder="Enter document title"/>
-        <textarea id="editor" placeholder="Enter your text"></textarea>
-        <button id="saveBtn">Save</button>
-        <div id="textResult"></div>
+        <!--<h2>Create new document</h2> -->
+
+
+      <div id="createEditContainer">
+        <!-- Document display -->
+        <div id="documentDisplay">
+          <h2 id="documentTitle"></h2>
+          <div id="documentContent"></div>
+        </div>
+
+        <!-- Document editor -->
+        <div id="documentEditor">
+          <label for="editTitle">Title:</label>
+          <input type="text" id="editTitle" />
+          <textarea id="editor" ></textarea>
+          <button id="saveBtn">Save</button>
+          <div id="textResult"></div>
+        </div>
       </div>
 
       <script type="module" src="removeDocument.js"></script>
       <script type="module" src="printDocuments.js"></script>
-      <script type="module" src="editDocument.js"></script>
       <script type="module" src="addDocument.js"></script>
       <script type="module" src="loginForm.js"></script>
+      <script type="module" src="editDocument.js"></script>
   </body>
 </html>

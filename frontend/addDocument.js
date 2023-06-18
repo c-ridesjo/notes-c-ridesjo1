@@ -30,15 +30,30 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
   });
 })
 
-// Event listener for the clearFieldsButton
-document.getElementById("clearFieldsButton").addEventListener("click", function() {
+// Event listener for the newDocButton
+document.getElementById("newDocButton").addEventListener("click", function() {
   clearDocumentFields();
 });
 
 function clearDocumentFields() {
   const editTitle = document.getElementById("editTitle");
   const editor = tinymce.get("editor");
+  const textResult = document.getElementById("textResult");
 
   editTitle.value = "";
   editor.setContent("");
+  textResult.innerHTML = ""; // Clear the content of textResult
 }
+
+// Add an event listener to show the createEditContainer when needed
+document.addEventListener("DOMContentLoaded", function () {
+  const createEditContainer = document.getElementById("createEditContainer");
+  const documentItems = document.getElementById("documentItems");
+
+  documentItems.addEventListener("click", function () {
+    createEditContainer.style.display = "block";
+  });
+  newDocButton.addEventListener("click", function () {
+    createEditContainer.style.display = "block";
+  });
+});

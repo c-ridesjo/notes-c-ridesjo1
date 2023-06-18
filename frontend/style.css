@@ -28,7 +28,11 @@ h1 {
 }
 
 #loginForm button{
-  background-color: rgb(240, 161, 97);
+  background-color: rgb(239, 178, 127);
+}
+
+#loginForm button:hover{
+  background-color: rgb(237, 152, 83);
 }
 
 #loginForm div {
@@ -46,9 +50,25 @@ h1 {
   display: none;    /* initially hidden */
 }
 
+#documentListContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 #documentList {
-  width: 100%;
-  max-width: 600px;
+  flex: 1;
+  max-width: calc(100% - 150px);
+}
+
+#newDocButton {
+  width: 100px;
+  background-color: rgb(239, 178, 127);
+  margin-bottom: 20px;
+}
+
+#newDocButton:hover {
+  background-color: rgb(237, 152, 83);
 }
 
 #documentDisplay {
@@ -77,12 +97,22 @@ h1 {
   background: #acdc8b;
 }
 
+#documentItems li:hover {
+  background-color: #4c9b17;
+}
+
 #documentItems li button {
   display: inline-block;
 }
 
 #documentItems li button:hover {
   background-color: #0aacac;
+}
+
+#createEditContainer{
+  border: 3px solid rgb(240, 139, 57);
+  padding: 20px;
+  display: none;    /* initially hidden */
 }
 
 #documentTitle {
@@ -114,3 +144,4 @@ h1 {
   height: 14rem;
   max-width: 600px;
 }
+

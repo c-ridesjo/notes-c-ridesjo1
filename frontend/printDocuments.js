@@ -1,4 +1,5 @@
 import { deleteDocument } from "./removeDocument.js";
+import { toggleEditMode } from "./editDocument.js";
 
 export function fetchAndPrintDocuments() {
   fetch("http://localhost:3000/documents/items")
@@ -14,9 +15,16 @@ export function fetchAndPrintDocuments() {
         listItem.addEventListener("click", () => {
           const editTitle = document.getElementById("editTitle");
           const editor = tinymce.get("editor");
+          const textResult = document.getElementById("textResult");
 
           editTitle.value = doc.itemName;
           editor.setContent(doc.itemContent);
+          textResult.innerHTML = doc.itemContent;
+
+          toggleEditMode(doc); // Open in edit mode
+
+          // Scroll to the top of the document editor
+          document.getElementById("documentEditor").scrollIntoView({ behavior: "smooth" });
         });
 
         const deleteButton = document.createElement("button");
@@ -40,3 +48,4 @@ export function fetchAndPrintDocuments() {
       console.log("An error occurred while fetching documents:", error);
     });
 }
+
