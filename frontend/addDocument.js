@@ -49,9 +49,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const createEditContainer = document.getElementById("createEditContainer");
   const documentItems = document.getElementById("documentItems");
 
-  documentItems.addEventListener("click", function () {
+  documentItems.addEventListener("click", function (event) {
+    if (event.target.tagName === "LI") {
+      // Clicked on the row, do nothing
+      return;
+    }
+
     createEditContainer.style.display = "block";
   });
+
   newDocButton.addEventListener("click", function () {
     createEditContainer.style.display = "block";
   });
