@@ -30,7 +30,6 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
   });
 })
 
-// Event listener for the newDocButton
 document.getElementById("newDocButton").addEventListener("click", function() {
   clearDocumentFields();
 });

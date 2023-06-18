@@ -1,4 +1,3 @@
-// Function to delete a document
 export function deleteDocument(itemId) {
   fetch(`http://localhost:3000/documents/items/${itemId}`, {
     method: "DELETE",
@@ -22,7 +21,6 @@ export function deleteDocument(itemId) {
 
 const deleteButton = document.getElementById("deleteButton");
 deleteButton.addEventListener("click", () => {
-  // Retrieve the itemId from the document element or wherever it is stored
   const itemId = document.getElementById("itemId").value;
   deleteDocument(itemId);
 });

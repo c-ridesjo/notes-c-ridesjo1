@@ -28,7 +28,7 @@ loginForm.addEventListener("submit", (event) => {
 
         fetchAndPrintDocuments();
         document.getElementById("documentsContainer").style.display = "block";
-        document.getElementById("loginContainer").style.display = "none"; // Hide the login form
+        document.getElementById("loginContainer").style.display = "none"; 
       } else {
         // Login failed
         console.log(data.message);

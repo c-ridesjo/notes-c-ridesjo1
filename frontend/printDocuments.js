@@ -21,9 +21,8 @@ export function fetchAndPrintDocuments() {
           editor.setContent(doc.itemContent);
           textResult.innerHTML = doc.itemContent;
 
-          toggleEditMode(doc); // Open in edit mode
+          toggleEditMode(doc); 
 
-          // Scroll to the top of the document editor
           document.getElementById("documentEditor").scrollIntoView({ behavior: "smooth" });
         });
 
@@ -37,7 +36,6 @@ export function fetchAndPrintDocuments() {
 
         documentList.appendChild(listItem);
 
-        // Check if the document is the newly created document
         if (doc.isNewlyCreated) {
           document.itemName = doc.itemName;
           document.itemContent = doc.itemContent;
@@ -48,4 +46,3 @@ export function fetchAndPrintDocuments() {
       console.log("An error occurred while fetching documents:", error);
     });
 }
-

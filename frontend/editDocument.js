@@ -13,7 +13,6 @@ export function toggleEditMode(doc) {
     editTitle.value = doc.itemName;
     editor.setContent(doc.itemContent);
 
-    // Remove existing event listener before adding it again
     saveButton.removeEventListener("click", saveUpdatedDocument);
 
     saveButton.addEventListener("click", () => {
@@ -21,8 +20,6 @@ export function toggleEditMode(doc) {
     });
   }
 }
-
-
 
 function saveUpdatedDocument(itemContent, itemName, itemId) {
   let content = {
@@ -44,4 +41,3 @@ function saveUpdatedDocument(itemContent, itemName, itemId) {
       console.log(data); 
     });
 }
-
