@@ -1,10 +1,6 @@
 var express = require("express");
 var router = express.Router();
 
-/*************************************************************** */
-/*************************Documents****************************/
-/**************************************************************** */
-
 // Hämtar ALLA dokument från items"
 router.get("/items", (req, res) => {
   req.app.locals.con.connect(function (err) {
@@ -79,7 +75,6 @@ router.post("/", function (req, res) {
       console.log(err);
     }
 
-    //let saveName = "Nytt dokument";         Ändrat här!!!
     let itemName = req.body.documentTitle;
     let itemContent = req.body.documentContent;
 
@@ -93,12 +88,6 @@ router.post("/", function (req, res) {
       }
 
       console.log("result", result);
-/* 
-      // Retrieve the updated list of documents from the database
-      const updatedDocumentList = getUpdatedDocumentList();
-
-      // Send the updated list back to the client
-      res.json(updatedDocumentList); */
     });
   });
 
