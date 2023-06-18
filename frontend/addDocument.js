@@ -1,3 +1,5 @@
+import { toggleEditMode } from "./editDocument.js";
+
 document.getElementById("saveBtn").addEventListener("click", function(e) {
   e.preventDefault();
 
