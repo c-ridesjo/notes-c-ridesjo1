@@ -27,8 +27,14 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
     .then((data) => {
       console.log(data);
       alert("Document successfully saved!");
+
+      // Fetch the saved document from the server and enable editing
+      toggleEditMode(data);
+    })
+    .catch((error) => {
+      console.log("An error occurred while saving the document:", error);
   });
-})
+  });
 
 document.getElementById("newDocButton").addEventListener("click", function() {
   clearDocumentFields();
