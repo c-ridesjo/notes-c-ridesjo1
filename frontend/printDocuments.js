@@ -33,7 +33,8 @@ export function fetchAndPrintDocuments() {
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
-        deleteButton.addEventListener("click", () => {
+        deleteButton.addEventListener("click", (event) => {
+          event.stopPropagation(); 
           deleteDocument(doc.itemId);
         });
 
