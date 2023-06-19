@@ -11,15 +11,18 @@ export function toggleEditMode(doc) {
     documentEditor.style.display = "block";
 
     editTitle.value = doc.itemName;
-    editor.setContent(doc.itemContent);
+    if (doc.itemContent) {
+      editor.setContent(doc.itemContent);
+    }
 
     saveButton.removeEventListener("click", saveUpdatedDocument);
 
     saveButton.addEventListener("click", () => {
-      saveUpdatedDocument(doc.itemContent, doc.itemName, doc.itemId);
+      saveUpdatedDocument(editor.getContent(), editTitle.value, doc.itemId);
     });
   }
 }
+
 
 function saveUpdatedDocument(itemContent, itemName, itemId) {
   let content = {
