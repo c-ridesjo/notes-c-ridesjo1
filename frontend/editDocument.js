@@ -27,7 +27,7 @@ export function toggleEditMode(doc) {
 function saveUpdatedDocument(itemContent, itemName, itemId) {
   let content = {
     updatedContent: itemContent,
-    updatedTitle: itemName
+    updatedTitle: itemName,
   };
 
   console.log(content);
@@ -41,6 +41,12 @@ function saveUpdatedDocument(itemContent, itemName, itemId) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data); 
+      console.log(data);
+      if (data === "Dokumentet har uppdaterats.") {
+        alert("Document successfully saved!");
+      }
+    })
+    .catch((error) => {
+      console.log("An error occurred while saving the document:", error);
     });
 }
