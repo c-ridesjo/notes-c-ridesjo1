@@ -75,7 +75,7 @@ router.post("/", function (req, res) {
       console.log(err);
     }
 
-    let itemName = req.body.documentTitle;
+    let itemName = req.body.itemName;
     let itemContent = req.body.documentContent;
 
     let sql = `INSERT INTO items (itemName, itemContent) VALUES ('${itemName}', '${itemContent}')`;

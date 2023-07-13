@@ -12,7 +12,7 @@ export function fetchAndPrintDocuments() {
         const listItem = document.createElement("li");
 
         const documentName = document.createElement("span");
-        documentName.textContent = doc.itemName;
+        documentName.textContent = doc.itemName; 
         documentName.addEventListener("click", () => {
           const editTitle = document.getElementById("editTitle");
           const editor = tinymce.get("editor");
@@ -34,21 +34,73 @@ export function fetchAndPrintDocuments() {
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", (event) => {
-          event.stopPropagation(); 
+          event.stopPropagation();
           deleteDocument(doc.itemId);
         });
 
         listItem.appendChild(deleteButton);
 
+        listItem.setAttribute("data-id", doc.itemId); 
+
         documentList.appendChild(listItem);
 
         if (doc.isNewlyCreated) {
-          document.itemName = doc.itemName;
-          document.itemContent = doc.itemContent;
+          doc.itemName = doc.itemName; 
+          doc.itemContent = doc.itemContent;
         }
       });
     })
     .catch((error) => {
       console.log("An error occurred while fetching documents:", error);
     });
+}
+
+export function updateDocumentList(doc) {
+  const documentList = document.getElementById("documentItems");
+
+  const existingItem = documentList.querySelector(`li[data-id="${doc.itemId}"]`);
+
+  if (existingItem) {
+    const documentName = existingItem.querySelector("span");
+    documentName.textContent = doc.itemName;
+  } else {
+    const listItem = document.createElement("li");
+    listItem.setAttribute("data-id", doc.itemId);
+
+    const documentName = document.createElement("span");
+    documentName.textContent = doc.itemName;
+    documentName.addEventListener("click", () => {
+      const editTitle = document.getElementById("editTitle");
+      const editor = tinymce.get("editor");
+      const textResult = document.getElementById("textResult");
+
+      editTitle.value = doc.itemName;
+      editor.setContent(doc.itemContent);
+      textResult.innerHTML = doc.itemContent;
+
+      toggleEditMode(doc);
+
+      document.getElementById("documentEditor").scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+
+    listItem.appendChild(documentName);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      deleteDocument(doc.itemId);
+    });
+
+    listItem.appendChild(deleteButton);
+
+    documentList.appendChild(listItem);
+
+    if (doc.isNewlyCreated) {
+      doc.itemName = doc.itemName;
+      doc.itemContent = doc.itemContent;
+    }
+  }
 }

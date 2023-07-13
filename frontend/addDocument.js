@@ -1,4 +1,5 @@
 import { toggleEditMode } from "./editDocument.js";
+import { updateDocumentList } from "./printDocuments.js";
 
 document.getElementById("saveBtn").addEventListener("click", function(e) {
   e.preventDefault();
@@ -12,9 +13,10 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
   }
   
   let newDocument = {
-    documentTitle: document.getElementById("editTitle").value,
+    itemName: document.getElementById("editTitle").value,
     documentContent: removeHtmlTags(tinymce.activeEditor.getContent()),
-  }
+  };
+  
 
   console.log(newDocument);
 
@@ -30,7 +32,9 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
       console.log(data);
       alert("Document successfully saved!");
 
-      // Fetch the saved document from the server and enable editing
+      const updatedDoc = { itemId: data.itemId, itemName: newDocument.itemName };
+      updateDocumentList(updatedDoc);
+
       toggleEditMode(data);
     })
     .catch((error) => {
@@ -49,10 +53,9 @@ function clearDocumentFields() {
 
   editTitle.value = "";
   editor.setContent("");
-  textResult.innerHTML = ""; // Clear the content of textResult
+  textResult.innerHTML = ""; 
 }
 
-// Add an event listener to show the createEditContainer when needed
 document.addEventListener("DOMContentLoaded", function () {
   const createEditContainer = document.getElementById("createEditContainer");
   const documentItems = document.getElementById("documentItems");
