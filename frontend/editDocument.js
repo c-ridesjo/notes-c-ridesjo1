@@ -10,11 +10,20 @@ export function toggleEditMode(doc) {
     documentDisplay.style.display = "block";
     documentEditor.style.display = "block";
 
-    editTitle.value = doc.itemName; 
-    if (doc.itemContent) {
-      editor.setContent(doc.itemContent);
+    // Check if doc has itemName and itemContent properties before setting them
+    if (doc.itemName) {
+      editTitle.value = doc.itemName;
+    } else {
+      editTitle.value = ""; // Clear the title field if itemName is not present
     }
 
+    if (doc.itemContent) {
+      editor.setContent(doc.itemContent);
+    } else {
+      editor.setContent(""); // Clear the content field if itemContent is not present
+    }
+
+    // Rest of the function remains the same
     saveButton.removeEventListener("click", saveUpdatedDocument);
 
     saveButton.addEventListener("click", () => {
@@ -22,6 +31,7 @@ export function toggleEditMode(doc) {
     });
   }
 }
+
 
 export function saveUpdatedDocument(itemContent, itemName, itemId) {
   return new Promise((resolve, reject) => {
