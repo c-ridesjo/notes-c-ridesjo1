@@ -42,6 +42,7 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
       updateDocumentList(updatedDoc, true);
     }
 
+    document.getElementById("textResult").innerHTML = newDocument.documentContent; 
     toggleEditMode(updatedDoc); 
     alert("Document successfully saved!");
   })
@@ -59,7 +60,14 @@ document.getElementById("updateBtn").addEventListener("click", function(e) {
 
   function removeHtmlTags(content) {
     const regex = /(<([^>]+)>)/gi;
-    return content.replace(regex, "");
+    return content.replace(regex, "")
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&aring;/g, 'å')
+      .replace(/&auml;/g, 'ä')
+      .replace(/&ouml;/g, 'ö')
+      .replace(/&Aring;/g, 'Å')
+      .replace(/&Auml;/g, 'Ä')
+      .replace(/&Ouml;/g, 'Ö');
   }
 
   let documentId = document.getElementById("editTitle").dataset.itemId;
@@ -69,8 +77,12 @@ document.getElementById("updateBtn").addEventListener("click", function(e) {
   };
 
   if (documentId) {
-    saveUpdatedDocument(newDocument.documentContent, newDocument.itemName, documentId);
+    saveUpdatedDocument(newDocument.documentContent, newDocument.itemName, documentId)
+      .then(() => {
+        document.getElementById("textResult").innerHTML = newDocument.documentContent; 
+      });
   }
+  
 });
 
 document.getElementById("newDocButton").addEventListener("click", function() {

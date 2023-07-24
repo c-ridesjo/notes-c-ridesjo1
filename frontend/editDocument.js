@@ -23,6 +23,7 @@ export function toggleEditMode(doc) {
 
     if (doc.itemContent) {
       editor.setContent(doc.itemContent);
+      document.getElementById("textResult").innerHTML = doc.itemContent || "";  
     } else {
       editor.setContent(""); 
     }
@@ -37,12 +38,19 @@ export function toggleEditMode(doc) {
   }
 }
 
+
 export function saveUpdatedDocument(itemContent, itemName, itemId) {
   return new Promise((resolve, reject) => {
-    let content = {
-      updatedContent: itemContent,
-      updatedTitle: itemName,
-    };
+let content = {
+  updatedContent: itemContent.replace(/&nbsp;/g, ' ')
+    .replace(/&aring;/g, 'å')
+    .replace(/&auml;/g, 'ä')
+    .replace(/&ouml;/g, 'ö')
+    .replace(/&Aring;/g, 'Å')
+    .replace(/&Auml;/g, 'Ä')
+    .replace(/&Ouml;/g, 'Ö'),
+  updatedTitle: itemName,
+};
 
     fetch(`http://localhost:3000/documents/items/${itemId}`, {
       method: "PUT",
@@ -51,23 +59,28 @@ export function saveUpdatedDocument(itemContent, itemName, itemId) {
       },
       body: JSON.stringify(content),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.affectedRows === 1) {
-          const updatedDocument = {
-            itemId: itemId,
-            itemName: itemName,
-            itemContent: itemContent
-          };
-          updateDocumentList(updatedDocument, false);
-          resolve("Document successfully saved!");
-        } else {
-          reject("Failed to save the document.");
-        }
-      })
-      .catch((error) => {
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      if (data.affectedRows === 1) {
+        const updatedDocument = {
+          itemId: itemId,
+          itemName: itemName,
+          itemContent: itemContent
+        };
+
+        const editor = tinymce.get("editor");
+        editor.setContent(itemContent);  
+        document.getElementById("textResult").innerHTML = itemContent;  
+
+        updateDocumentList(updatedDocument, false);
+        resolve("Document successfully saved!");
+      } else {
+        reject("Failed to save the document.");
+      }
+    })
+    .catch((error) => {
         reject("An error occurred while saving the document: " + error);
-      });
+    });
   });
 }
