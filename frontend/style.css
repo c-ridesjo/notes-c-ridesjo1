@@ -62,9 +62,14 @@ h1 {
 }
 
 #newDocButton {
-  width: 100px;
+  width: 150px; 
+  height: 50px; 
+  font-size: 18px; 
   background-color: rgb(239, 178, 127);
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #newDocButton:hover {
@@ -133,18 +138,33 @@ h1 {
 }
 
 #saveBtn {
-  margin-top: 10px;
-}
-
-#updateBtn {
-  display: none;
+  display: none; 
   padding: 10px 15px;
-  background-color: #f8b24f;
+  background-color: #1fa426; 
   border: none;
   color: white;
   font-size: 14px;
   cursor: pointer;
   border-radius: 5px;
+}
+
+#saveBtn:hover {
+  background-color: #18841e;
+}
+
+#updateBtn {
+  display: none;
+  padding: 10px 15px;
+  background-color: #cd5409;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#updateBtn:hover {
+  background-color: #b14a0a;
 }
 
 #textResult {
