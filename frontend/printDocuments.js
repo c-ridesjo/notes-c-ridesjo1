@@ -9,24 +9,14 @@ export function fetchAndPrintDocuments() {
       documentList.innerHTML = "";
 
       data.forEach((doc) => {
+        console.log('Printing document:', doc);
         const listItem = document.createElement("li");
+        listItem.id = doc.itemId;
 
         const documentName = document.createElement("span");
         documentName.textContent = doc.itemName; 
         documentName.addEventListener("click", () => {
-          const editTitle = document.getElementById("editTitle");
-          const editor = tinymce.get("editor");
-          const textResult = document.getElementById("textResult");
-
-          editTitle.value = doc.itemName;
-          editor.setContent(doc.itemContent);
-          textResult.innerHTML = doc.itemContent;
-
           toggleEditMode(doc);
-
-          document.getElementById("documentEditor").scrollIntoView({
-            behavior: "smooth",
-          });
         });
 
         listItem.appendChild(documentName);
@@ -43,11 +33,6 @@ export function fetchAndPrintDocuments() {
         listItem.setAttribute("data-id", doc.itemId); 
 
         documentList.appendChild(listItem);
-
-        if (doc.isNewlyCreated) {
-          doc.itemName = doc.itemName; 
-          doc.itemContent = doc.itemContent;
-        }
       });
     })
     .catch((error) => {
@@ -56,33 +41,22 @@ export function fetchAndPrintDocuments() {
 }
 
 export function updateDocumentList(doc) {
+  console.log('updateDocumentList called with:', doc);
   const documentList = document.getElementById("documentItems");
 
-  const existingItem = documentList.querySelector(`li[data-id="${doc.itemId}"]`);
+  let listItem = documentList.querySelector(`li[data-id="${doc.itemId}"]`);
 
-  if (existingItem) {
-    const documentName = existingItem.querySelector("span");
+  if (listItem) { 
+    const documentName = listItem.querySelector("span");
     documentName.textContent = doc.itemName;
-  } else {
-    const listItem = document.createElement("li");
+  } else { 
+    listItem = document.createElement("li");
     listItem.setAttribute("data-id", doc.itemId);
 
     const documentName = document.createElement("span");
     documentName.textContent = doc.itemName;
     documentName.addEventListener("click", () => {
-      const editTitle = document.getElementById("editTitle");
-      const editor = tinymce.get("editor");
-      const textResult = document.getElementById("textResult");
-
-      editTitle.value = doc.itemName;
-      editor.setContent(doc.itemContent);
-      textResult.innerHTML = doc.itemContent;
-
       toggleEditMode(doc);
-
-      document.getElementById("documentEditor").scrollIntoView({
-        behavior: "smooth",
-      });
     });
 
     listItem.appendChild(documentName);
@@ -97,10 +71,5 @@ export function updateDocumentList(doc) {
     listItem.appendChild(deleteButton);
 
     documentList.appendChild(listItem);
-
-    if (doc.isNewlyCreated) {
-      doc.itemName = doc.itemName;
-      doc.itemContent = doc.itemContent;
-    }
   }
 }

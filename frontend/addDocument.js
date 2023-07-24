@@ -1,4 +1,4 @@
-import { toggleEditMode } from "./editDocument.js";
+import { toggleEditMode, saveUpdatedDocument } from "./editDocument.js";
 import { updateDocumentList } from "./printDocuments.js";
 
 document.getElementById("saveBtn").addEventListener("click", function(e) {
@@ -16,7 +16,6 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
     itemName: document.getElementById("editTitle").value,
     documentContent: removeHtmlTags(tinymce.activeEditor.getContent()),
   };
-  
 
   console.log(newDocument);
 
@@ -27,20 +26,52 @@ document.getElementById("saveBtn").addEventListener("click", function(e) {
     },
     body: JSON.stringify(newDocument),
   })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      alert("Document successfully saved!");
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
 
-      const updatedDoc = { itemId: data.itemId, itemName: newDocument.itemName };
-      updateDocumentList(updatedDoc);
+    let updatedDoc = {
+      itemId: data.itemId,
+      itemName: newDocument.itemName,
+      itemContent: newDocument.documentContent
+    };
 
-      toggleEditMode(data);
-    })
+    console.log('Before updateDocumentList in addDocument.js', updatedDoc);
+    
+    if (updatedDoc.itemId !== document.getElementById("editTitle").dataset.itemId) {
+      updateDocumentList(updatedDoc, true);
+    }
+
+    toggleEditMode(updatedDoc); 
+    alert("Document successfully saved!");
+  })
+    
     .catch((error) => {
       console.log("An error occurred while saving the document:", error);
   });
-  });
+});
+
+document.getElementById("updateBtn").addEventListener("click", function(e) {
+  e.preventDefault();
+
+  let user = localStorage.getItem("username");
+  console.log(user);
+
+  function removeHtmlTags(content) {
+    const regex = /(<([^>]+)>)/gi;
+    return content.replace(regex, "");
+  }
+
+  let documentId = document.getElementById("editTitle").dataset.itemId;
+  let newDocument = {
+    itemName: document.getElementById("editTitle").value,
+    documentContent: removeHtmlTags(tinymce.activeEditor.getContent()),
+  };
+
+  if (documentId) {
+    saveUpdatedDocument(newDocument.documentContent, newDocument.itemName, documentId);
+  }
+});
 
 document.getElementById("newDocButton").addEventListener("click", function() {
   clearDocumentFields();
@@ -51,10 +82,18 @@ function clearDocumentFields() {
   const editor = tinymce.get("editor");
   const textResult = document.getElementById("textResult");
 
+  const saveButton = document.getElementById("saveBtn");
+  const updateButton = document.getElementById("updateBtn");
+
   editTitle.value = "";
+  delete editTitle.dataset.itemId;  
   editor.setContent("");
   textResult.innerHTML = ""; 
+
+  saveButton.style.display = "block";  
+  updateButton.style.display = "none"; 
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const createEditContainer = document.getElementById("createEditContainer");
@@ -62,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   documentItems.addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
-      // Clicked on the row, do nothing
       return;
     }
 

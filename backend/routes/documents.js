@@ -78,21 +78,26 @@ router.post("/", function (req, res) {
     let itemName = req.body.itemName;
     let itemContent = req.body.documentContent;
 
-    let sql = `INSERT INTO items (itemName, itemContent) VALUES ('${itemName}', '${itemContent}')`;
+    let sql = `INSERT INTO items (itemName, itemContent) VALUES (?, ?)`;
 
-    req.app.locals.con.query(sql, function (err, result) {
+    req.app.locals.con.query(sql, [itemName, itemContent], function (err, result) {
       if (err) {
         console.log(err);
         res.status(500).json("Error occurred while saving the document.");
         return;
       }
-
+  
       console.log("result", result);
+      console.log('POST /documents', req.body, result); 
+  
+      res.json({
+        itemId: result.insertId,
+        itemName: itemName,
+        itemContent: itemContent
+      });
     });
   });
-
-  res.json("Dokument sparat!");
-});
+})
 
 // Raderar ett dokument med itemId
 router.delete("/items/:itemId", function (req, res) {
@@ -124,20 +129,23 @@ router.put("/items/:itemId", function (req, res) {
       console.log(err);
     }
 
-    const { itemId, itemName, itemContent } = req.body;
+    const { updatedTitle, updatedContent } = req.body; 
+    const itemId = req.params.itemId;
 
     let sql = `UPDATE items SET itemName = ?, itemContent = ? WHERE itemId = ?`;
 
-    req.app.locals.con.query(sql, [itemName, itemContent, itemId], function (err, result) {
+    req.app.locals.con.query(sql, [updatedTitle, updatedContent, itemId], function (err, result) {
       if (err) {
         console.log(err);
       }
 
       console.log("Dokumentet har uppdaterats.");
+      console.log('PUT /documents/items/:itemId', req.body, result);
 
       res.json(result);
     });
   });
 });
+
 
 module.exports = router;

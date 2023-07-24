@@ -1,3 +1,5 @@
+import { updateDocumentList } from "./printDocuments.js";
+
 export function toggleEditMode(doc) {
   const documentDisplay = document.getElementById("documentDisplay");
   const documentEditor = document.getElementById("documentEditor");
@@ -6,32 +8,34 @@ export function toggleEditMode(doc) {
     const editTitle = document.getElementById("editTitle");
     const editor = tinymce.get("editor");
     const saveButton = document.getElementById("saveBtn");
+    const updateButton = document.getElementById("updateBtn");
 
     documentDisplay.style.display = "block";
     documentEditor.style.display = "block";
 
-    // Check if doc has itemName and itemContent properties before setting them
     if (doc.itemName) {
       editTitle.value = doc.itemName;
+      editTitle.dataset.itemId = doc.itemId;
     } else {
-      editTitle.value = ""; // Clear the title field if itemName is not present
+      editTitle.value = ""; 
+      delete editTitle.dataset.itemId;  
     }
 
     if (doc.itemContent) {
       editor.setContent(doc.itemContent);
     } else {
-      editor.setContent(""); // Clear the content field if itemContent is not present
+      editor.setContent(""); 
     }
 
-    // Rest of the function remains the same
-    saveButton.removeEventListener("click", saveUpdatedDocument);
-
-    saveButton.addEventListener("click", () => {
-      saveUpdatedDocument(editor.getContent(), editTitle.value, doc.itemId);
-    });
+    if (doc.itemId) {
+      saveButton.style.display = "none";
+      updateButton.style.display = "block";
+    } else {
+      saveButton.style.display = "block";
+      updateButton.style.display = "none";
+    }
   }
 }
-
 
 export function saveUpdatedDocument(itemContent, itemName, itemId) {
   return new Promise((resolve, reject) => {
@@ -50,14 +54,17 @@ export function saveUpdatedDocument(itemContent, itemName, itemId) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data === "Dokumentet har uppdaterats.") {
+        if (data.affectedRows === 1) {
+          const updatedDocument = {
+            itemId: itemId,
+            itemName: itemName,
+            itemContent: itemContent
+          };
+          updateDocumentList(updatedDocument, false);
           resolve("Document successfully saved!");
         } else {
           reject("Failed to save the document.");
         }
-
-          updateDocumentList({ itemId: itemId, itemName: itemName });
-
       })
       .catch((error) => {
         reject("An error occurred while saving the document: " + error);
